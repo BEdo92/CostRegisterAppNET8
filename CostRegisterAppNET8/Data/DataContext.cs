@@ -13,4 +13,13 @@ public class DataContext(DbContextOptions<DataContext> options) : DbContext(opti
     {
         base.OnConfiguring(optionsBuilder);
     }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<AppUser>()
+            .Property(e => e.Id)
+            .ValueGeneratedOnAdd();
+
+        base.OnModelCreating(modelBuilder);
+    }
 }
