@@ -1,0 +1,106 @@
+[
+  {
+    "id": 1,
+    "categoryName": "groceries"
+  },
+  {
+    "id": 2,
+    "categoryName": "electronics"
+  },
+  {
+    "id": 3,
+    "categoryName": "clothing"
+  },
+  {
+    "id": 4,
+    "categoryName": "furniture"
+  },
+  {
+    "id": 5,
+    "categoryName": "appliances"
+  },
+  {
+    "id": 6,
+    "categoryName": "toys"
+  },
+  {
+    "id": 7,
+    "categoryName": "hobbies"
+  },
+  {
+    "id": 8,
+    "categoryName": "books"
+  },
+  {
+    "id": 9,
+    "categoryName": "music"
+  },
+  {
+    "id": 10,
+    "categoryName": "movies"
+  },
+  {
+    "id": 11,
+    "categoryName": "games"
+  },
+  {
+    "id": 12,
+    "categoryName": "sporting goods"
+  },
+  {
+    "id": 13,
+    "categoryName": "tools"
+  },
+  {
+    "id": 14,
+    "categoryName": "hardware"
+  },
+  {
+    "id": 15,
+    "categoryName": "automotive"
+  },
+  {
+    "id": 16,
+    "categoryName": "pet supplies"
+  },
+  {
+    "id": 17,
+    "categoryName": "baby"
+  },
+  {
+    "id": 18,
+    "categoryName": "health"
+  },
+  {
+    "id": 19,
+    "categoryName": "beauty"
+  },
+  {
+    "id": 20,
+    "categoryName": "personal care"
+  },
+  {
+    "id": 21,
+    "categoryName": "home"
+  },
+  {
+    "id": 22,
+    "categoryName": "office supplies"
+  },
+  {
+    "id": 23,
+    "categoryName": "crafts"
+  },
+  {
+    "id": 24,
+    "categoryName": "party supplies"
+  },
+  {
+    "id": 25,
+    "categoryName": "holiday"
+  },
+  {
+    "id": 26,
+    "categoryName": "other"
+  }
+]
