@@ -1,14 +1,11 @@
 [
   {
-    "id": 1,
     "categoryName": "Salary"
   },
   {
-    "id": 2,
     "categoryName": "Prize"
   },
   {
-    "id": 3,
     "categoryName": "Gift"
   }
 ]

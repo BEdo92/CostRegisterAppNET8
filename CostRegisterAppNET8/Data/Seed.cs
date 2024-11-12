@@ -28,7 +28,6 @@ public class Seed
         }
 
         await context.CostCategories.AddRangeAsync(costCategoriesData);
-        await context.SaveChangesAsync();
     }
 
     public static async Task SeedIncomeCategories(DataContext context)
@@ -54,6 +53,5 @@ public class Seed
         }
 
         await context.IncomeCategories.AddRangeAsync(incomeCategoriesData);
-        await context.SaveChangesAsync();
     }
 }

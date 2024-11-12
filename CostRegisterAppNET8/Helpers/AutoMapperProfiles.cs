@@ -9,5 +9,9 @@ public class AutoMapperProfiles : Profile
     public AutoMapperProfiles()
     {
         CreateMap<RegisterDto, AppUser>();
+        CreateMap<Cost, CostDto>()
+            .ForMember(dest => dest.CostCategory, opt => opt.MapFrom(src => src.CostCategory.CategoryName));
+        CreateMap<CostDto, Cost>()
+            .ForMember(dest => dest.CostCategory, opt => opt.MapFrom(src => new CostCategory { CategoryName = src.CostCategory }));
     }
 }

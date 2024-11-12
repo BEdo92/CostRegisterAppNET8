@@ -39,6 +39,7 @@ try
     var context = services.GetRequiredService<DataContext>();
     await Seed.SeedCostCategories(context);
     await Seed.SeedIncomeCategories(context);
+    await context.SaveChangesAsync();
 }
 catch (Exception ex)
 {

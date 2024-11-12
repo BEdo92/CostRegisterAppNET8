@@ -8,6 +8,7 @@ public class DataContext(DbContextOptions<DataContext> options) : DbContext(opti
     public DbSet<CostPlan> CostPlans { get; set; }
     public DbSet<IncomeCategory> IncomeCategories { get; set; }
     public DbSet<CostCategory> CostCategories { get; set; }
+    public DbSet<Cost> Costs { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {

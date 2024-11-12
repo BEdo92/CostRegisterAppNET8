@@ -1,5 +1,6 @@
 ﻿using CostRegisterAppNET8.Data;
 using CostRegisterAppNET8.Interfaces;
+using CostRegisterAppNET8.Repositories;
 using CostRegisterAppNET8.Services;
 using Microsoft.EntityFrameworkCore;
 
@@ -25,6 +26,10 @@ public static class ApplicationServiceExtensions
         services.AddCors();
 
         services.AddScoped<ITokenService, TokenService>();
+        services.AddScoped<IUnitOfWork, UnitOfWork>();
+        services.AddScoped<IIncomeCategoryRepository, IncomeCategoryRepository>();
+        services.AddScoped<ICostCategoryRepository, CostCategoryRepository>();
+        services.AddScoped<ICostRepository, CostRepository>();
 
         services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
