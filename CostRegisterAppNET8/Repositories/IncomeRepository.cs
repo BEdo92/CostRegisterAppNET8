@@ -13,6 +13,9 @@ public class IncomeRepository(DataContext context) : IIncomeRepository
 
     public async Task<IEnumerable<Income>> GetIncomesAsync(string userId)
     {
-        return await context.Incomes.Where(i => i.AppUserId == userId).ToListAsync();
+        return await context.Incomes
+            .Where(i => i.AppUserId == userId)
+            .Include(i => i.IncomeCategory)
+            .ToListAsync();
     }
 }

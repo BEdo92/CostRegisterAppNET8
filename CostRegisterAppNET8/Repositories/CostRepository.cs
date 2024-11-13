@@ -23,7 +23,10 @@ public class CostRepository(DataContext context) : ICostRepository
 
     public async Task<IEnumerable<Cost>> GetCostsAsync(string userId)
     {
-        return await context.Costs.Where(c => c.AppUserId == userId).ToListAsync();
+        return await context.Costs
+            .Where(c => c.AppUserId == userId)
+            .Include(c => c.CostCategory)
+            .ToListAsync();
     }
 
     public Task UpdateCostAsync(Cost cost)
