@@ -18,7 +18,8 @@ public static class IdentityServiceExtensions
         services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         .AddJwtBearer(options =>
         {
-            var tokenKey = config["TokenKey"] ?? throw new ArgumentNullException("TokenKey is missing in appsettings.json");
+            var tokenKey = Environment.GetEnvironmentVariable("TOKEN_KEY")
+                           ?? throw new ArgumentNullException("TOKEN_KEY environment variable is missing");
             options.TokenValidationParameters = new TokenValidationParameters
             {
                 ValidateIssuerSigningKey = true,

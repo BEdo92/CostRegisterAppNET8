@@ -30,6 +30,7 @@ public static class ApplicationServiceExtensions
         services.AddScoped<IIncomeCategoryRepository, IncomeCategoryRepository>();
         services.AddScoped<ICostCategoryRepository, CostCategoryRepository>();
         services.AddScoped<ICostRepository, CostRepository>();
+        services.AddScoped<IIncomeRepository, IncomeRepository>();
 
         services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 

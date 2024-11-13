@@ -7,13 +7,15 @@ public class UnitOfWork(
     DataContext context,
     ICostCategoryRepository costCategoryRepository,
     IIncomeCategoryRepository incomeCategoryRepository,
-    ICostRepository costRepository) : IUnitOfWork
+    ICostRepository costRepository,
+    IIncomeRepository incomeRepository) : IUnitOfWork
 {
     public ICostCategoryRepository CostCategoryRepository => costCategoryRepository;
 
     public ICostRepository CostRepository => costRepository;
 
     public IIncomeCategoryRepository IncomeCategoryRepository => incomeCategoryRepository;
+    public IIncomeRepository IncomeRepository => incomeRepository;
 
     public async Task<bool> CompleteAsync()
     {

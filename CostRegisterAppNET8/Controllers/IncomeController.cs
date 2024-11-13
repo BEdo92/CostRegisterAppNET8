@@ -9,10 +9,10 @@ using System.Security.Claims;
 namespace CostRegisterAppNET8.Controllers;
 
 [Authorize]
-public class CostController(IUnitOfWork unitOfWork, IMapper mapper) : BaseApiController
+public class IncomeController(IUnitOfWork unitOfWork, IMapper mapper) : BaseApiController
 {
     [HttpPost]
-    public async Task<ActionResult<CostEntryDto>> AddCost(CostEntryDto costDto)
+    public async Task<ActionResult> AddIncome(CostEntryDto incomeDto)
     {
         var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
@@ -21,22 +21,22 @@ public class CostController(IUnitOfWork unitOfWork, IMapper mapper) : BaseApiCon
             return BadRequest("No user ID was found in token.");
         }
 
-        var cost = mapper.Map<Cost>(costDto);
-        cost.AppUserId = userId;
-        cost.CostCategoryId = await unitOfWork.CostCategoryRepository.GetCategoryIdAsync(costDto.Category);
+        var income = mapper.Map<Income>(incomeDto);
+        income.AppUserId = userId;
+        income.IncomeCategoryId = await unitOfWork.IncomeCategoryRepository.GetCategoryIdAsync(incomeDto.Category);
 
-        await unitOfWork.CostRepository.AddCostAsync(cost);
+        await unitOfWork.IncomeRepository.AddIncomeAsync(income);
 
         if (await unitOfWork.CompleteAsync())
         {
             return Ok();
         }
 
-        return BadRequest("Failed to add cost");
+        return BadRequest("Failed to add income");
     }
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<CostEntryDto>>> GetCosts()
+    public async Task<ActionResult<IEnumerable<CostEntryDto>>> GetIncomes()
     {
         var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
@@ -45,8 +45,8 @@ public class CostController(IUnitOfWork unitOfWork, IMapper mapper) : BaseApiCon
             return BadRequest("No user ID was found in token.");
         }
 
-        var costs = await unitOfWork.CostRepository.GetCostsAsync(userId);
+        var incomes = await unitOfWork.IncomeRepository.GetIncomesAsync(userId);
 
-        return Ok(mapper.Map<IEnumerable<CostEntryDto>>(costs));
+        return Ok(mapper.Map<IEnumerable<CostEntryDto>>(incomes));
     }
 }

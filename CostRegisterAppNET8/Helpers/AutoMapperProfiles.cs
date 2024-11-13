@@ -8,10 +8,17 @@ public class AutoMapperProfiles : Profile
 {
     public AutoMapperProfiles()
     {
+        // Registration
         CreateMap<RegisterDto, AppUser>();
-        CreateMap<Cost, CostDto>()
-            .ForMember(dest => dest.CostCategory, opt => opt.MapFrom(src => src.CostCategory.CategoryName));
-        CreateMap<CostDto, Cost>()
-            .ForMember(dest => dest.CostCategory, opt => opt.MapFrom(src => new CostCategory { CategoryName = src.CostCategory }));
+
+        // Cost
+        CreateMap<Cost, CostEntryDto>()
+            .ForMember(dest => dest.Category, opt => opt.MapFrom(src => src.CostCategory.CategoryName));
+        CreateMap<CostEntryDto, Cost>();
+
+        // Income
+        CreateMap<Income, CostEntryDto>()
+            .ForMember(dest => dest.Category, opt => opt.MapFrom(src => src.IncomeCategory.CategoryName));
+        CreateMap<CostEntryDto, Income>();
     }
 }
