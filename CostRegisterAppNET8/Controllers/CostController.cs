@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using CostRegisterAppNET8.Data;
 using CostRegisterAppNET8.DTOs;
+using CostRegisterAppNET8.Helpers;
 using CostRegisterAppNET8.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -25,7 +26,7 @@ public class CostController(IUnitOfWork unitOfWork, IMapper mapper) : BaseApiCon
         cost.AppUserId = userId;
         cost.CostCategoryId = await unitOfWork.CostCategoryRepository.GetCategoryIdAsync(costDto.Category);
 
-        await unitOfWork.CostRepository.AddCostAsync(cost);
+        await unitOfWork.CostRepository.AddAsync(cost);
 
         if (await unitOfWork.CompleteAsync())
         {
@@ -35,7 +36,7 @@ public class CostController(IUnitOfWork unitOfWork, IMapper mapper) : BaseApiCon
         return BadRequest("Failed to add cost");
     }
 
-    [HttpGet]
+    [HttpGet("all")]
     public async Task<ActionResult<IEnumerable<CostEntryDto>>> GetCosts()
     {
         var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -46,6 +47,21 @@ public class CostController(IUnitOfWork unitOfWork, IMapper mapper) : BaseApiCon
         }
 
         var costs = await unitOfWork.CostRepository.GetCostsAsync(userId);
+
+        return Ok(mapper.Map<IEnumerable<CostEntryDto>>(costs));
+    }
+
+    [HttpGet("filter")]
+    public async Task<ActionResult<IEnumerable<CostEntryDto>>> GetCosts([FromQuery] CostParams costParams)
+    {
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+        if (string.IsNullOrEmpty(userId))
+        {
+            return BadRequest("No user ID was found in token.");
+        }
+
+        var costs = await unitOfWork.CostRepository.GetCostsAsync(userId, costParams);
 
         return Ok(mapper.Map<IEnumerable<CostEntryDto>>(costs));
     }

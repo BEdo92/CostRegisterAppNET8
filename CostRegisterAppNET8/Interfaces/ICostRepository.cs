@@ -1,12 +1,11 @@
 ﻿using CostRegisterAppNET8.Data;
+using CostRegisterAppNET8.DTOs;
+using CostRegisterAppNET8.Helpers;
 
 namespace CostRegisterAppNET8.Interfaces;
 
-public interface ICostRepository
+public interface ICostRepository : IBaseTotalRepository<Cost>
 {
     Task<IEnumerable<Cost>> GetCostsAsync(string userId);
-    Task<Cost> GetCostByIdAsync(int id);
-    Task AddCostAsync(Cost cost);
-    Task UpdateCostAsync(Cost cost);
-    Task DeleteCostAsync(Cost cost);
+    Task<IEnumerable<CostEntryDto?>> GetCostsAsync(string userId, CostParams costParams);
 }

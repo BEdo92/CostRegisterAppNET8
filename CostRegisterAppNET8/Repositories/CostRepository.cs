@@ -1,24 +1,20 @@
-﻿using CostRegisterAppNET8.Data;
+﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
+using CostRegisterAppNET8.Data;
+using CostRegisterAppNET8.DTOs;
+using CostRegisterAppNET8.Helpers;
 using CostRegisterAppNET8.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace CostRegisterAppNET8.Repositories;
 
-public class CostRepository(DataContext context) : ICostRepository
+public class CostRepository : BaseTotalRepository<Cost>, ICostRepository
 {
-    public async Task AddCostAsync(Cost cost)
-    {
-        await context.Costs.AddAsync(cost);
-    }
+    private readonly IMapper mapper;
 
-    public Task DeleteCostAsync(Cost cost)
+    public CostRepository(DataContext context, IMapper mapper) : base(context)
     {
-        throw new NotImplementedException();
-    }
-
-    public Task<Cost> GetCostByIdAsync(int id)
-    {
-        throw new NotImplementedException();
+        this.mapper = mapper;
     }
 
     public async Task<IEnumerable<Cost>> GetCostsAsync(string userId)
@@ -29,8 +25,14 @@ public class CostRepository(DataContext context) : ICostRepository
             .ToListAsync();
     }
 
-    public Task UpdateCostAsync(Cost cost)
+    public async Task<IEnumerable<CostEntryDto?>> GetCostsAsync(string userId, CostParams costParams)
     {
-        throw new NotImplementedException();
+        var query = context.Costs
+            .Where(c => c.AppUserId == userId)
+            .Include(c => c.CostCategory)
+            .ProjectTo<CostEntryDto>(mapper.ConfigurationProvider)
+            .AsQueryable();
+
+        return await FilterAsync(query, costParams);
     }
 }

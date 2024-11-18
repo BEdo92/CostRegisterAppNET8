@@ -8,28 +8,28 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CostRegisterAppNET8.Repositories;
 
-public class IncomeRepository : BaseTotalRepository<Income>, IIncomeRepository
+public class CostplanRepository : BaseTotalRepository<CostPlan>, ICostplanRepository
 {
     private readonly IMapper mapper;
 
-    public IncomeRepository(DataContext context, IMapper mapper) : base(context)
+    public CostplanRepository(DataContext context, IMapper mapper) : base(context)
     {
         this.mapper = mapper;
     }
 
-    public async Task<IEnumerable<Income>> GetIncomesAsync(string userId)
+    public async Task<IEnumerable<CostPlan>> GetCostplansAsync(string userId)
     {
-        return await context.Incomes
+        return await context.CostPlans
             .Where(c => c.AppUserId == userId)
-            .Include(c => c.IncomeCategory)
+            .Include(c => c.CostCategory)
             .ToListAsync();
     }
 
-    public async Task<IEnumerable<CostEntryDto?>> GetIncomesAsync(string userId, CostParams costParams)
+    public async Task<IEnumerable<CostEntryDto?>> GetCostplansAsync(string userId, CostParams costParams)
     {
-        var query = context.Incomes
-            .Where(c => c.AppUserId == userId)
-            .Include(c => c.IncomeCategory)
+        var query = context.CostPlans
+        .Where(c => c.AppUserId == userId)
+            .Include(c => c.CostCategory)
             .ProjectTo<CostEntryDto>(mapper.ConfigurationProvider)
             .AsQueryable();
 

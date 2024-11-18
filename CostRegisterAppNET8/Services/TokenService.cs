@@ -8,11 +8,13 @@ using System.Text;
 
 namespace CostRegisterAppNET8.Services;
 
-public class TokenService(IConfiguration config, UserManager<AppUser> userManager) : ITokenService
+public class TokenService(UserManager<AppUser> userManager) : ITokenService
 {
     public string CreateToken(AppUser user)
     {
-        var tokenKey = config["TokenKey"] ?? throw new ArgumentNullException("TokenKey is missing in appsettings.json");
+        var tokenKey = Environment.GetEnvironmentVariable("TOKEN_KEY")
+            ?? throw new ArgumentNullException(
+                "TokenKey is missing in environment variables");
 
         if (tokenKey.Length < 64)
         {

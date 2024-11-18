@@ -10,10 +10,10 @@ using System.Security.Claims;
 namespace CostRegisterAppNET8.Controllers;
 
 [Authorize]
-public class IncomeController(IUnitOfWork unitOfWork, IMapper mapper) : BaseApiController
+public class CostplanController(IUnitOfWork unitOfWork, IMapper mapper) : BaseApiController
 {
     [HttpPost]
-    public async Task<ActionResult> AddIncome(CostEntryDto incomeDto)
+    public async Task<ActionResult> AddCostplan(CostEntryDto incomeDto)
     {
         var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
@@ -22,11 +22,11 @@ public class IncomeController(IUnitOfWork unitOfWork, IMapper mapper) : BaseApiC
             return BadRequest("No user ID was found in token.");
         }
 
-        var income = mapper.Map<Income>(incomeDto);
-        income.AppUserId = userId;
-        income.IncomeCategoryId = await unitOfWork.IncomeCategoryRepository.GetCategoryIdAsync(incomeDto.Category);
+        var costplan = mapper.Map<CostPlan>(incomeDto);
+        costplan.AppUserId = userId;
+        costplan.CostCategoryId = await unitOfWork.CostCategoryRepository.GetCategoryIdAsync(incomeDto.Category);
 
-        await unitOfWork.IncomeRepository.AddAsync(income);
+        await unitOfWork.CostplanRepository.AddAsync(costplan);
 
         if (await unitOfWork.CompleteAsync())
         {
@@ -37,7 +37,7 @@ public class IncomeController(IUnitOfWork unitOfWork, IMapper mapper) : BaseApiC
     }
 
     [HttpGet("all")]
-    public async Task<ActionResult<IEnumerable<CostEntryDto>>> GetIncomes()
+    public async Task<ActionResult<IEnumerable<CostEntryDto>>> GetCostplans()
     {
         var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
@@ -46,9 +46,9 @@ public class IncomeController(IUnitOfWork unitOfWork, IMapper mapper) : BaseApiC
             return BadRequest("No user ID was found in token.");
         }
 
-        var incomes = await unitOfWork.IncomeRepository.GetIncomesAsync(userId);
+        var costplans = await unitOfWork.CostplanRepository.GetCostplansAsync(userId);
 
-        return Ok(mapper.Map<IEnumerable<CostEntryDto>>(incomes));
+        return Ok(mapper.Map<IEnumerable<CostEntryDto>>(costplans));
     }
 
     [HttpGet("filter")]
@@ -61,7 +61,7 @@ public class IncomeController(IUnitOfWork unitOfWork, IMapper mapper) : BaseApiC
             return BadRequest("No user ID was found in token.");
         }
 
-        var costs = await unitOfWork.IncomeRepository.GetIncomesAsync(userId, costParams);
+        var costs = await unitOfWork.CostplanRepository.GetCostplansAsync(userId, costParams);
 
         return Ok(mapper.Map<IEnumerable<CostEntryDto>>(costs));
     }

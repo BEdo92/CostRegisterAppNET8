@@ -8,7 +8,8 @@ public class UnitOfWork(
     ICostCategoryRepository costCategoryRepository,
     IIncomeCategoryRepository incomeCategoryRepository,
     ICostRepository costRepository,
-    IIncomeRepository incomeRepository) : IUnitOfWork
+    IIncomeRepository incomeRepository,
+    ICostplanRepository costplanRepository) : IUnitOfWork
 {
     public ICostCategoryRepository CostCategoryRepository => costCategoryRepository;
 
@@ -16,6 +17,7 @@ public class UnitOfWork(
 
     public IIncomeCategoryRepository IncomeCategoryRepository => incomeCategoryRepository;
     public IIncomeRepository IncomeRepository => incomeRepository;
+    public ICostplanRepository CostplanRepository => costplanRepository;
 
     public async Task<bool> CompleteAsync()
     {

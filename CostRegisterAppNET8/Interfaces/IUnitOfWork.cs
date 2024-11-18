@@ -6,6 +6,7 @@ public interface IUnitOfWork
     ICostRepository CostRepository { get; }
     IIncomeCategoryRepository IncomeCategoryRepository { get; }
     IIncomeRepository IncomeRepository { get; }
+    ICostplanRepository CostplanRepository { get; }
 
     Task<bool> CompleteAsync();
     bool HasChanges();
