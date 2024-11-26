@@ -1,6 +1,6 @@
-using CostRegisterAppNET8.Data;
-using CostRegisterAppNET8.Extensions;
-using CostRegisterAppNET8.Middleware;
+using API.Data;
+using API.Extensions;
+using API.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 

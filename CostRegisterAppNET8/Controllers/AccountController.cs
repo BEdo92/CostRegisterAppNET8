@@ -1,12 +1,12 @@
 ﻿using AutoMapper;
-using CostRegisterAppNET8.Data;
-using CostRegisterAppNET8.DTOs;
-using CostRegisterAppNET8.Interfaces;
+using API.Data;
+using API.DTOs;
+using API.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace CostRegisterAppNET8.Controllers;
+namespace API.Controllers;
 
 public class AccountController(UserManager<AppUser> userManager, ITokenService tokenService, IMapper mapper) : BaseApiController
 {

@@ -1,7 +1,7 @@
-﻿using CostRegisterAppNET8.Data;
-using CostRegisterAppNET8.Interfaces;
+﻿using API.Data;
+using API.Interfaces;
 
-namespace CostRegisterAppNET8.Repositories;
+namespace API.Repositories;
 
 public class UnitOfWork(
     DataContext context,

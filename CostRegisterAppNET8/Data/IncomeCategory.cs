@@ -1,4 +1,4 @@
-﻿namespace CostRegisterAppNET8.Data;
+﻿namespace API.Data;
 
 public class IncomeCategory : BaseCategoryModel
 {

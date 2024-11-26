@@ -1,8 +1,8 @@
-﻿using CostRegisterAppNET8.Data;
-using CostRegisterAppNET8.Interfaces;
+﻿using API.Data;
+using API.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
-namespace CostRegisterAppNET8.Controllers;
+namespace API.Controllers;
 
 public class CostCategoryController(IUnitOfWork unitOfWork) : BaseApiController
 {

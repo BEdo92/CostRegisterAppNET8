@@ -1,4 +1,4 @@
-﻿namespace CostRegisterAppNET8.Interfaces;
+﻿namespace API.Interfaces;
 
 public interface IUnitOfWork
 {

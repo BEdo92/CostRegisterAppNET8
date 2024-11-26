@@ -1,4 +1,4 @@
-﻿namespace CostRegisterAppNET8.Helpers;
+﻿namespace API.Helpers;
 
 public class CostParams
 {

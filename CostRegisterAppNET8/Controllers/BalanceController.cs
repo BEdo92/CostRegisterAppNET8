@@ -1,9 +1,9 @@
 using AutoMapper;
-using CostRegisterAppNET8.Interfaces;
+using API.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
-namespace CostRegisterAppNET8.Controllers;
+namespace API.Controllers;
 
 public class BalanceController(IUnitOfWork unitOfWork, IMapper mapper) : BaseApiController
 {

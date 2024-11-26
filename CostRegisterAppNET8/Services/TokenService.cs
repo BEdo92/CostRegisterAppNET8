@@ -1,12 +1,12 @@
-﻿using CostRegisterAppNET8.Data;
-using CostRegisterAppNET8.Interfaces;
+﻿using API.Data;
+using API.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace CostRegisterAppNET8.Services;
+namespace API.Services;
 
 public class TokenService(UserManager<AppUser> userManager) : ITokenService
 {

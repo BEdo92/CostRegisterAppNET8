@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Text.Json;
 
-namespace CostRegisterAppNET8.Data;
+namespace API.Data;
 
 public class Seed
 {

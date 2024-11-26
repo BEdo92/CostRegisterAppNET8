@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace CostRegisterAppNET8.Helpers;
+namespace API.Helpers;
 
 public class PagedList<T> : List<T>
 {

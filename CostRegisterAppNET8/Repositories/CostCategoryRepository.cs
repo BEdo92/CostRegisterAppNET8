@@ -1,8 +1,8 @@
-﻿using CostRegisterAppNET8.Data;
-using CostRegisterAppNET8.Interfaces;
+﻿using API.Data;
+using API.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
-namespace CostRegisterAppNET8.Repositories;
+namespace API.Repositories;
 
 public class CostCategoryRepository(DataContext context) : ICostCategoryRepository
 {

@@ -1,6 +1,6 @@
-﻿using CostRegisterAppNET8.Data;
+﻿using API.Data;
 
-namespace CostRegisterAppNET8.Interfaces;
+namespace API.Interfaces;
 
 public interface ITokenService
 {

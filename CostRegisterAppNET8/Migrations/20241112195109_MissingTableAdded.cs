@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace CostRegisterAppNET8.Migrations
+namespace API.Migrations
 {
     /// <inheritdoc />
     public partial class MissingTableAdded : Migration

@@ -1,10 +1,10 @@
-﻿using CostRegisterAppNET8.Data;
-using CostRegisterAppNET8.DTOs;
-using CostRegisterAppNET8.Helpers;
-using CostRegisterAppNET8.Interfaces;
+﻿using API.Data;
+using API.DTOs;
+using API.Helpers;
+using API.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
-namespace CostRegisterAppNET8.Repositories;
+namespace API.Repositories;
 
 public class BaseTotalRepository<TEntity>(DataContext context) : IBaseTotalRepository<TEntity>
        where TEntity : BaseTotalModel

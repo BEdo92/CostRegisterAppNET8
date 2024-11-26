@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace CostRegisterAppNET8.Data;
+namespace API.Data;
 
 public class AppUser : IdentityUser<string>
 {

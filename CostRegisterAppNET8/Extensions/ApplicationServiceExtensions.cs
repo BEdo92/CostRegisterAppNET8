@@ -1,11 +1,11 @@
-﻿using CostRegisterAppNET8.Data;
-using CostRegisterAppNET8.Interfaces;
-using CostRegisterAppNET8.Repositories;
-using CostRegisterAppNET8.Services;
+﻿using API.Data;
+using API.Interfaces;
+using API.Repositories;
+using API.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
-namespace CostRegisterAppNET8.Extensions;
+namespace API.Extensions;
 
 public static class ApplicationServiceExtensions
 {

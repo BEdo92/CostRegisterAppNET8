@@ -1,12 +1,12 @@
-﻿using AutoMapper;
+﻿using API.Data;
+using API.DTOs;
+using API.Helpers;
+using API.Interfaces;
+using AutoMapper;
 using AutoMapper.QueryableExtensions;
-using CostRegisterAppNET8.Data;
-using CostRegisterAppNET8.DTOs;
-using CostRegisterAppNET8.Helpers;
-using CostRegisterAppNET8.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
-namespace CostRegisterAppNET8.Repositories;
+namespace API.Repositories;
 
 public class CostRepository : BaseTotalRepository<Cost>, ICostRepository
 {

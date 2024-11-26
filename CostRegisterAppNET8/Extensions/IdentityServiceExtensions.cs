@@ -1,9 +1,9 @@
-﻿using CostRegisterAppNET8.Data;
+﻿using API.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
-namespace CostRegisterAppNET8.Extensions;
+namespace API.Extensions;
 
 public static class IdentityServiceExtensions
 {

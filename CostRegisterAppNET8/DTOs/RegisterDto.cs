@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace CostRegisterAppNET8.DTOs;
+namespace API.DTOs;
 
 public class RegisterDto
 {

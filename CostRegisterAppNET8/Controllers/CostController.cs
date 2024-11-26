@@ -1,13 +1,13 @@
-﻿using AutoMapper;
-using CostRegisterAppNET8.Data;
-using CostRegisterAppNET8.DTOs;
-using CostRegisterAppNET8.Helpers;
-using CostRegisterAppNET8.Interfaces;
+﻿using API.Data;
+using API.DTOs;
+using API.Helpers;
+using API.Interfaces;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
-namespace CostRegisterAppNET8.Controllers;
+namespace API.Controllers;
 
 [Authorize]
 public class CostController(IUnitOfWork unitOfWork, IMapper mapper) : BaseApiController

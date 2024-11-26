@@ -1,8 +1,8 @@
-﻿using CostRegisterAppNET8.Errors;
+﻿using API.Errors;
 using System.Net;
 using System.Text.Json;
 
-namespace CostRegisterAppNET8.Middleware;
+namespace API.Middleware;
 
 public class ExceptionMiddleware(RequestDelegate next, ILogger<ExceptionMiddleware> logger, IHostEnvironment env)
 {

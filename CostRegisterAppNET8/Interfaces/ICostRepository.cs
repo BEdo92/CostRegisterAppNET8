@@ -1,8 +1,8 @@
-﻿using CostRegisterAppNET8.Data;
-using CostRegisterAppNET8.DTOs;
-using CostRegisterAppNET8.Helpers;
+﻿using API.Data;
+using API.DTOs;
+using API.Helpers;
 
-namespace CostRegisterAppNET8.Interfaces;
+namespace API.Interfaces;
 
 public interface ICostRepository : IBaseTotalRepository<Cost>
 {

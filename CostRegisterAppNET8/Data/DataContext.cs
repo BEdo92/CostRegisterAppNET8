@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace CostRegisterAppNET8.Data;
+namespace API.Data;
 
 public class DataContext(DbContextOptions<DataContext> options) : DbContext(options)
 {

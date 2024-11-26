@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using CostRegisterAppNET8.Data;
-using CostRegisterAppNET8.DTOs;
+using API.Data;
+using API.DTOs;
 
-namespace CostRegisterAppNET8.Helpers;
+namespace API.Helpers;
 
 public class AutoMapperProfiles : Profile
 {

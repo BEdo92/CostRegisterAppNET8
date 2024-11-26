@@ -1,4 +1,4 @@
-﻿namespace CostRegisterAppNET8.Errors;
+﻿namespace API.Errors;
 
 public class ApiException(int statusCode, string message, string? details)
 {
