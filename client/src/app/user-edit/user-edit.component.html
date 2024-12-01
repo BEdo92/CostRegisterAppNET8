@@ -1,0 +1,42 @@
+@if (member) {
+    <div class="row">
+        <div class="col-4">
+            <h1>Your profile</h1>
+        </div>
+        <div class="col-8">
+            @if (editForm.dirty) {
+            <div class="alert alert-info pb-0">
+                <p><strong>Information: </strong>
+                    You have made changes. Any unsaved changes will be lost.</p>
+            </div>
+            }
+        </div>
+        <div class="col-8">
+            <form [formGroup]="editForm" (ngSubmit)="updateMember()">
+                <app-text-input [formControl]="$any(editForm.controls['username'])" [label]="'Username'" [(ngModel)]="member.username">
+                </app-text-input>
+                
+                <app-text-input [formControl]="$any(editForm.controls['email'])" [label]="'Email'" [(ngModel)]="member.email">
+                </app-text-input>
+    
+                <app-text-input [formControl]="$any(editForm.controls['location'])" [label]="'Location'" [(ngModel)]="member.location">
+                </app-text-input>
+    
+                @if (validationErrors) {
+                    <div class="alert alert-danger text-start">
+                      <ul>
+                        @for (error of validationErrors; track $index) {
+                          <li>{{error}}</li>
+                        }
+                      </ul>
+                    </div>
+                  }
+            
+                  <button [disabled]="!editForm.dirty" type="submit" class="btn btn-success col-12">
+                    Save changes
+                </button>
+                </form>
+        </div>
+    
+    </div>
+    }
