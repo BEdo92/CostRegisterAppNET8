@@ -1,4 +1,4 @@
-import { Component, HostListener, inject } from '@angular/core';
+import { Component, HostListener, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AccountService } from '../_services/account.service';
 import { ToastrService } from 'ngx-toastr';
@@ -13,7 +13,7 @@ import { TextInputComponent } from '../_forms/text-input/text-input.component';
   templateUrl: './user-edit.component.html',
   styleUrl: './user-edit.component.css'
 })
-export class UserEditComponent {
+export class UserEditComponent implements OnInit {
   private fb = inject(FormBuilder);
   editForm: FormGroup = new FormGroup({});
   validationErrors: string[] | undefined;
@@ -50,7 +50,7 @@ export class UserEditComponent {
     this.editForm = this.fb.group({
       username: [this.member?.username, Validators.required],
       email: [this.member?.email, [Validators.required, Validators.email]],
-      location: [this.member?.location, Validators.required]
+      phoneNumber: [this.member?.phoneNumber, Validators.required]
     });
     this.editForm.controls['password'].valueChanges.subscribe({
       next: () => this.editForm.controls['confirmPassword'].updateValueAndValidity()

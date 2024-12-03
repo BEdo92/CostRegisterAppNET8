@@ -1,6 +1,6 @@
-﻿using AutoMapper;
-using API.Data;
+﻿using API.Data;
 using API.DTOs;
+using AutoMapper;
 
 namespace API.Helpers;
 
@@ -25,5 +25,9 @@ public class AutoMapperProfiles : Profile
         CreateMap<CostPlan, CostEntryDto>()
             .ForMember(dest => dest.Category, opt => opt.MapFrom(src => src.CostCategory.CategoryName));
         CreateMap<CostEntryDto, CostPlan>();
+
+        // User edit
+        CreateMap<MemberDto, AppUser>();
+        CreateMap<AppUser, MemberDto>();
     }
 }

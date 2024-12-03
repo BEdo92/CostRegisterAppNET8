@@ -30,7 +30,7 @@ export class RegisterComponent {
         Validators.maxLength(15)]],
       confirmPassword: ['', [Validators.required, this.matchValues('password')]],
       email: ['', [Validators.required, Validators.email]],
-      location: ['', Validators.required]
+      phoneNumber: ['', Validators.required]
     });
     this.registerForm.controls['password'].valueChanges.subscribe({
       next: () => this.registerForm.controls['confirmPassword'].updateValueAndValidity()
