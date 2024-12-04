@@ -1,5 +1,4 @@
-﻿using API.Data;
-using API.Interfaces;
+﻿using API.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers;
@@ -7,8 +6,11 @@ namespace API.Controllers;
 public class CostCategoryController(IUnitOfWork unitOfWork) : BaseApiController
 {
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<CostCategory>>> GetCostCategories()
+    public async Task<ActionResult<IEnumerable<string>>> GetCostCategories()
     {
-        return Ok(await unitOfWork.CostCategoryRepository.GetCostCategoriesAsync());
+        // TODO: Temporary solution.
+        return Ok(
+            (await unitOfWork.CostCategoryRepository.GetCostCategoriesAsync())
+            .Select(c => c.CategoryName));
     }
 }
