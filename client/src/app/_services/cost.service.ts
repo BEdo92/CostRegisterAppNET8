@@ -11,11 +11,19 @@ export class CostService {
   private accountService = inject(AccountService);
   baseUrl = environment.apiUrl;
 
-  getCategories() {
+  getCostCategories() {
     return this.http.get<string[]>(this.baseUrl + 'costcategory');
+  }
+
+  getIncomeCategories() {
+    return this.http.get<string[]>(this.baseUrl + 'incomecategory');
   }
 
   saveCost(model: any) {
     return this.http.post(this.baseUrl + 'cost', model);
+  }
+
+  saveIncome(model: any) {
+    return this.http.post(this.baseUrl + 'income', model);
   }
 }

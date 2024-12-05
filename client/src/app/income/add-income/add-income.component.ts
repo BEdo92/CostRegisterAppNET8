@@ -1,36 +1,35 @@
 import { Component, inject, OnInit } from '@angular/core';
+import { AccountService } from '../../_services/account.service';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { CommonModule } from '@angular/common';
 import { CostService } from '../../_services/cost.service';
+import { ToastrService } from 'ngx-toastr';
 import { TextInputComponent } from '../../_forms/text-input/text-input.component';
 import { DatePickerComponent } from '../../_forms/date-picker/date-picker.component';
-import { AccountService } from '../../_services/account.service';
-import { ToastrService } from 'ngx-toastr';
-
+import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-add-cost',
+  selector: 'app-add-income',
   standalone: true,
   imports: [ReactiveFormsModule, TextInputComponent, DatePickerComponent, CommonModule],
-  templateUrl: './add-cost.component.html',
-  styleUrl: './add-cost.component.css'
+  templateUrl: './add-income.component.html',
+  styleUrl: './add-income.component.css'
 })
-export class AddCostComponent implements OnInit {
+export class AddIncomeComponent implements OnInit {
   accountService = inject(AccountService);
   categories: string[] = [];
   private fb = inject(FormBuilder);
   private costService = inject(CostService);
-  costForm: FormGroup = new FormGroup({});
+  incomeForm: FormGroup = new FormGroup({});
   validationErrors: string[] | undefined;
   maxDate = new Date();
   toastr = inject(ToastrService);
 
   ngOnInit(): void {
-    this.loadCostCategories();
+    this.loadIncomeCategories();
   }
 
   initializeForm() {
-    this.costForm = this.fb.group({
+    this.incomeForm = this.fb.group({
       date: ['', Validators.required, Validators.max(this.maxDate.getTime())],
       category: [this.categories, Validators.required],
       total: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
@@ -39,8 +38,8 @@ export class AddCostComponent implements OnInit {
   }
 
   saveData() {
-    console.log(this.costForm.value);
-    this.costService.saveCost(this.costForm.value).subscribe({
+    console.log(this.incomeForm.value);
+    this.costService.saveIncome(this.incomeForm.value).subscribe({
       next: response => { 
         console.log(response);
       },
@@ -52,8 +51,8 @@ export class AddCostComponent implements OnInit {
     this.toastr.success('Saved successfully');
   }
 
-  loadCostCategories() {
-    this.costService.getCostCategories().subscribe({
+  loadIncomeCategories() {
+    this.costService.getIncomeCategories().subscribe({
       next: categories => {
         this.categories = categories;
         console.log(this.categories);
