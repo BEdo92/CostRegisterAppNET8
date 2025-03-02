@@ -9,20 +9,23 @@ namespace API.Extensions;
 
 public static class ApplicationServiceExtensions
 {
-    public static IServiceCollection AddApplicationServices(this IServiceCollection services, IConfiguration config)
+    public static IServiceCollection AddApplicationServices(this IServiceCollection services, WebApplicationBuilder builder)
     {
         services.AddControllers();
 
-        var connectionString = Environment.GetEnvironmentVariable("SQL_CONNECTION_STRING");
-        if (string.IsNullOrEmpty(connectionString))
+        var connection = string.Empty;
+        if (builder.Environment.IsDevelopment())
         {
-            throw new Exception("SQL_CONNECTION_STRING environment variable is not set.");
+            builder.Configuration.AddEnvironmentVariables().AddJsonFile("appsettings.Development.json");
+            connection = builder.Configuration.GetConnectionString("AZURE_SQL_CONNECTIONSTRING");
+        }
+        else
+        {
+            connection = Environment.GetEnvironmentVariable("AZURE_SQL_CONNECTIONSTRING");
         }
 
         services.AddDbContext<DataContext>(options =>
-        {
-            options.UseSqlServer(connectionString);
-        });
+            options.UseSqlServer(connection));
 
         // Add Swagger services
         services.AddEndpointsApiExplorer();
