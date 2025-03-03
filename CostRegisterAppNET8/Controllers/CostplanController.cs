@@ -1,8 +1,8 @@
-﻿using AutoMapper;
-using API.Data;
+﻿using API.Data;
 using API.DTOs;
 using API.Helpers;
 using API.Interfaces;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
@@ -13,7 +13,7 @@ namespace API.Controllers;
 public class CostplanController(IUnitOfWork unitOfWork, IMapper mapper) : BaseApiController
 {
     [HttpPost]
-    public async Task<ActionResult> AddCostplan(CostEntryDto incomeDto)
+    public async Task<ActionResult> AddCostplan(CostPlanEntryDto incomeDto)
     {
         var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
@@ -37,7 +37,7 @@ public class CostplanController(IUnitOfWork unitOfWork, IMapper mapper) : BaseAp
     }
 
     [HttpGet("all")]
-    public async Task<ActionResult<IEnumerable<CostEntryDto>>> GetCostplans()
+    public async Task<ActionResult<IEnumerable<CostPlanEntryDto>>> GetCostplans()
     {
         var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
@@ -48,11 +48,11 @@ public class CostplanController(IUnitOfWork unitOfWork, IMapper mapper) : BaseAp
 
         var costplans = await unitOfWork.CostplanRepository.GetCostplansAsync(userId);
 
-        return Ok(mapper.Map<IEnumerable<CostEntryDto>>(costplans));
+        return Ok(mapper.Map<IEnumerable<CostPlanEntryDto>>(costplans));
     }
 
     [HttpGet("filter")]
-    public async Task<ActionResult<IEnumerable<CostEntryDto>>> GetCosts([FromQuery] CostParams costParams)
+    public async Task<ActionResult<IEnumerable<CostPlanEntryDto>>> GetCosts([FromQuery] CostParams costParams)
     {
         var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
@@ -63,6 +63,6 @@ public class CostplanController(IUnitOfWork unitOfWork, IMapper mapper) : BaseAp
 
         var costs = await unitOfWork.CostplanRepository.GetCostplansAsync(userId, costParams);
 
-        return Ok(mapper.Map<IEnumerable<CostEntryDto>>(costs));
+        return Ok(mapper.Map<IEnumerable<CostPlanEntryDto>>(costs));
     }
 }

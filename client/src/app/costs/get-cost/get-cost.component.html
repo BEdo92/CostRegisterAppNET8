@@ -1,1 +1,29 @@
-<p>get-cost works!</p>
+<h2>Expenses</h2>
+
+@if (costs.length > 0) {
+<table>
+    <tr>
+        <th><button type="button" name="orderBy">Date</button></th>
+        <th><button type="button" name="orderBy">Category</button></th>
+        <th><button type="button" name="orderBy">Total</button></th>
+        <th><button type="button" name="orderBy">Comment</button></th>
+    </tr>
+@for (cost of costs; track cost.date) {
+    <tr>
+        <td>{{cost.date}}</td>
+        <td>{{cost.category}}</td>
+        <td>{{cost.total}}</td>
+        <td>{{cost.comment}}</td>
+    </tr>
+}
+<tr>
+    <th><input></th>
+    <th><input></th>
+    <th><input></th>
+    <th><input></th>
+</tr>
+<tr>
+    <td (click)="filterData()"></td>
+</tr>
+</table>
+}

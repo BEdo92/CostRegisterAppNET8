@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { TabsModule } from 'ngx-bootstrap/tabs';
@@ -14,5 +14,4 @@ import { GetCostComponent } from "./get-cost/get-cost.component";
   styleUrl: './costs.component.css'
 })
 export class CostsComponent  {
-  
 }

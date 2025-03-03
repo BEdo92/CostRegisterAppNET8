@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { AccountService } from './account.service';
 import { environment } from '../../environments/environment';
+import { Cost } from '../_models/cost';
 
 @Injectable({
   providedIn: 'root'
@@ -25,5 +26,13 @@ export class CostService {
 
   saveIncome(model: any) {
     return this.http.post(this.baseUrl + 'income', model);
+  }
+
+  saveCostPlan(model: any) {
+    return this.http.post(this.baseUrl + 'costplan', model);
+  }
+
+  getCosts() {
+    return this.http.get<Cost[]>(this.baseUrl + 'cost/all');
   }
 }

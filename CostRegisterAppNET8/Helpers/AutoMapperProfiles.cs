@@ -22,9 +22,9 @@ public class AutoMapperProfiles : Profile
         CreateMap<CostEntryDto, Income>();
 
         // Costplan
-        CreateMap<CostPlan, CostEntryDto>()
+        CreateMap<CostPlan, CostPlanEntryDto>()
             .ForMember(dest => dest.Category, opt => opt.MapFrom(src => src.CostCategory.CategoryName));
-        CreateMap<CostEntryDto, CostPlan>();
+        CreateMap<CostPlanEntryDto, CostPlan>();
 
         // User edit
         CreateMap<MemberDto, AppUser>();
