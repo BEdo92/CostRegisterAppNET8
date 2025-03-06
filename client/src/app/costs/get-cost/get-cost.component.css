@@ -1,0 +1,20 @@
+.mat-column-select {
+    overflow: initial;
+  }
+
+  .mat-paginator {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .mat-paginator .mat-paginator-page-size {
+    margin-left: auto;
+    margin-right: 0;
+  }
+  
+  .mat-paginator .mat-paginator-range-label {
+    margin-left: auto;
+    margin-right: auto;
+  }

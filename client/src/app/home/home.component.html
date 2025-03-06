@@ -1,6 +1,7 @@
 @if (accountService.currentUser()) {
 <h2>Welcome back, {{accountService.currentUser()?.username | titlecase}}!</h2>
 <p>Here comes the home page of the registered user, maybe a summary.</p>
+<h3>Current balance: {{balance}}</h3>
 } @else {
 @if (!registerMode) {
 <div class="container mt-5">

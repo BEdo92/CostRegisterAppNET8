@@ -1,6 +1,5 @@
-import { HttpClient } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
-import { AccountService } from './account.service';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { inject, Injectable, signal } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { Cost } from '../_models/cost';
 
@@ -9,7 +8,6 @@ import { Cost } from '../_models/cost';
 })
 export class CostService {
   private http = inject(HttpClient);
-  private accountService = inject(AccountService);
   baseUrl = environment.apiUrl;
 
   getCostCategories() {
@@ -34,5 +32,9 @@ export class CostService {
 
   getCosts() {
     return this.http.get<Cost[]>(this.baseUrl + 'cost/all');
+  }
+
+  getBalance() {
+    return this.http.get<number>(this.baseUrl + 'balance');
   }
 }

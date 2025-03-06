@@ -1,7 +1,8 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { AccountService } from '../_services/account.service';
 import { RegisterComponent } from "../register/register.component";
 import { TitleCasePipe } from '@angular/common';
+import { CostService } from '../_services/cost.service';
 
 @Component({
   selector: 'app-home',
@@ -10,9 +11,11 @@ import { TitleCasePipe } from '@angular/common';
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
   accountService = inject(AccountService);
+  costService = inject(CostService);
   registerMode = false;
+  balance : number = 0;
 
   registerToggle() {
     this.registerMode = !this.registerMode;
@@ -20,5 +23,18 @@ export class HomeComponent {
 
   cancelRegisterMode(event: boolean) {
     this.registerMode = event;
+  }
+
+  ngOnInit(): void {
+    this.getBalance();
+  }
+
+  getBalance() {
+    this.costService.getBalance().subscribe({
+      next: balance => {
+        this.balance = balance;
+      },
+      error: error => console.log(error)
+    });
   }
 }
