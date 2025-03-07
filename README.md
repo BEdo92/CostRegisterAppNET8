@@ -1,4 +1,6 @@
-## A simple cost register app for web and mobile (later).
+# Cost register (.NET 8)
+
+### A simple cost register app for web and mobile (later).
 
 The main functions of this cost register app are:
 
