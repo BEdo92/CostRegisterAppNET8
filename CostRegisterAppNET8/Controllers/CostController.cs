@@ -10,7 +10,7 @@ using System.Security.Claims;
 namespace API.Controllers;
 
 [Authorize]
-public class CostController(IUnitOfWork unitOfWork, IMapper mapper) : BaseApiController
+public class CostController(IUnitOfWork unitOfWork, IMapper mapper) : BaseTotalController<Cost>(unitOfWork)
 {
     [HttpPost]
     public async Task<ActionResult<CostEntryDto>> AddCost(CostEntryDto costDto)
@@ -64,5 +64,20 @@ public class CostController(IUnitOfWork unitOfWork, IMapper mapper) : BaseApiCon
         var costs = await unitOfWork.CostRepository.GetCostsAsync(userId, costParams);
 
         return Ok(mapper.Map<IEnumerable<CostEntryDto>>(costs));
+    }
+
+    protected override async Task<Cost?> GetEntityByIdAsync(int id)
+    {
+        return await unitOfWork.CostRepository.GetByIdAsync(id);
+    }
+
+    protected override bool IsUserAuthorized(Cost entity, string userId)
+    {
+        return entity.AppUserId == userId;
+    }
+
+    protected override void DeleteEntity(Cost entity)
+    {
+        unitOfWork.CostRepository.Delete(entity);
     }
 }

@@ -22,6 +22,7 @@ public class IncomeRepository : BaseTotalRepository<Income>, IIncomeRepository
         return await context.Incomes
             .Where(c => c.AppUserId == userId)
             .Include(c => c.IncomeCategory)
+            .AsNoTracking()
             .ToListAsync();
     }
 
@@ -30,6 +31,7 @@ public class IncomeRepository : BaseTotalRepository<Income>, IIncomeRepository
         var query = context.Incomes
             .Where(c => c.AppUserId == userId)
             .Include(c => c.IncomeCategory)
+            .AsNoTracking()
             .ProjectTo<CostEntryDto>(mapper.ConfigurationProvider)
             .AsQueryable();
 

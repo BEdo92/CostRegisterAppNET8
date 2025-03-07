@@ -8,6 +8,7 @@ import { MatSort, MatSortModule, Sort } from '@angular/material/sort';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { FormsModule } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-get-cost',
@@ -23,6 +24,7 @@ export class GetCostComponent implements AfterViewInit, OnInit {
   elementData: Cost[] | undefined;
   dataSource = new MatTableDataSource<Cost>;
   selection: SelectionModel<Cost>;
+  toastr = inject(ToastrService);
 
   constructor() {
     const initialSelection: Cost[] | undefined = [];
@@ -55,14 +57,6 @@ export class GetCostComponent implements AfterViewInit, OnInit {
     });
   }
 
-  announceSortChange(sortState: Sort) {
-    if (sortState.direction) {
-      this.liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
-    } else {
-      this.liveAnnouncer.announce('Sorting cleared');
-    }
-  }
-
   isAllSelected() {
     const numSelected = this.selection.selected.length;
     const numRows = this.dataSource.data.length;
@@ -73,5 +67,17 @@ export class GetCostComponent implements AfterViewInit, OnInit {
     this.isAllSelected() ?
       this.selection.clear() :
       this.dataSource.data.forEach(row => this.selection.select(row));
+  }
+
+  deleteSelected() {
+    const idsToDelete = this.selection.selected.map(cost => cost.id);
+    this.costService.deleteCosts(idsToDelete).subscribe({
+      next: () => {
+        this.selection.clear();
+        this.toastr.success('Data deleted successfully');
+        this.loadCosts();
+      },
+      error: error => console.log(error)
+    });
   }
 }

@@ -10,7 +10,7 @@ using System.Security.Claims;
 namespace API.Controllers;
 
 [Authorize]
-public class CostplanController(IUnitOfWork unitOfWork, IMapper mapper) : BaseApiController
+public class CostplanController(IUnitOfWork unitOfWork, IMapper mapper) : BaseTotalController<CostPlan>(unitOfWork)
 {
     [HttpPost]
     public async Task<ActionResult> AddCostplan(CostPlanEntryDto incomeDto)
@@ -52,7 +52,7 @@ public class CostplanController(IUnitOfWork unitOfWork, IMapper mapper) : BaseAp
     }
 
     [HttpGet("filter")]
-    public async Task<ActionResult<IEnumerable<CostPlanEntryDto>>> GetCosts([FromQuery] CostParams costParams)
+    public async Task<ActionResult<IEnumerable<CostPlanEntryDto>>> GetCostplans([FromQuery] CostParams costParams)
     {
         var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
@@ -64,5 +64,20 @@ public class CostplanController(IUnitOfWork unitOfWork, IMapper mapper) : BaseAp
         var costs = await unitOfWork.CostplanRepository.GetCostplansAsync(userId, costParams);
 
         return Ok(mapper.Map<IEnumerable<CostPlanEntryDto>>(costs));
+    }
+
+    protected override async Task<CostPlan> GetEntityByIdAsync(int id)
+    {
+        return await unitOfWork.CostplanRepository.GetByIdAsync(id);
+    }
+
+    protected override bool IsUserAuthorized(CostPlan entity, string userId)
+    {
+        return entity.AppUserId == userId;
+    }
+
+    protected override void DeleteEntity(CostPlan entity)
+    {
+        unitOfWork.CostplanRepository.Delete(entity);
     }
 }

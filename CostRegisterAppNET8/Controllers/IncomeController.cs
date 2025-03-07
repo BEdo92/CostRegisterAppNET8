@@ -10,7 +10,7 @@ using System.Security.Claims;
 namespace API.Controllers;
 
 [Authorize]
-public class IncomeController(IUnitOfWork unitOfWork, IMapper mapper) : BaseApiController
+public class IncomeController(IUnitOfWork unitOfWork, IMapper mapper) : BaseTotalController<Income>(unitOfWork)
 {
     [HttpPost]
     public async Task<ActionResult> AddIncome(CostEntryDto incomeDto)
@@ -37,7 +37,7 @@ public class IncomeController(IUnitOfWork unitOfWork, IMapper mapper) : BaseApiC
     }
 
     [HttpGet("all")]
-    public async Task<ActionResult<IEnumerable<CostEntryDto>>> GetIncomes()
+    public async Task<ActionResult<IEnumerable<CostEntryDto>>> GetIncome()
     {
         var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
@@ -52,7 +52,7 @@ public class IncomeController(IUnitOfWork unitOfWork, IMapper mapper) : BaseApiC
     }
 
     [HttpGet("filter")]
-    public async Task<ActionResult<IEnumerable<CostEntryDto>>> GetCosts([FromQuery] CostParams costParams)
+    public async Task<ActionResult<IEnumerable<CostEntryDto>>> GetIncome([FromQuery] CostParams costParams)
     {
         var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
@@ -64,5 +64,20 @@ public class IncomeController(IUnitOfWork unitOfWork, IMapper mapper) : BaseApiC
         var costs = await unitOfWork.IncomeRepository.GetIncomesAsync(userId, costParams);
 
         return Ok(mapper.Map<IEnumerable<CostEntryDto>>(costs));
+    }
+
+    protected override async Task<Income?> GetEntityByIdAsync(int id)
+    {
+        return await unitOfWork.IncomeRepository.GetByIdAsync(id);
+    }
+
+    protected override bool IsUserAuthorized(Income entity, string userId)
+    {
+        return entity.AppUserId == userId;
+    }
+
+    protected override void DeleteEntity(Income entity)
+    {
+        unitOfWork.IncomeRepository.Delete(entity);
     }
 }

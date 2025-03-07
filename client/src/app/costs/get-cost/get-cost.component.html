@@ -1,4 +1,4 @@
-<table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)"
+<table mat-table [dataSource]="dataSource" matSort
     class="table table-striped border-bottom border-top">
 
     <!-- Date Column -->
@@ -47,4 +47,8 @@
 <div class="d-flex justify-content-between align-items-center mt-3">
     <mat-paginator [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons aria-label="Select page of periodic elements">
     </mat-paginator>
+</div>
+
+<div class="d-flex justify-content-between align-items-center mt-3">
+    <button class="btn btn-warning me-2" (click)="deleteSelected()">Delete</button>
 </div>

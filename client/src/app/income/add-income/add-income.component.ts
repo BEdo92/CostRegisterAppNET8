@@ -30,7 +30,7 @@ export class AddIncomeComponent implements OnInit {
 
   initializeForm() {
     this.incomeForm = this.fb.group({
-      date: ['', Validators.required, Validators.max(this.maxDate.getTime())],
+      date: ['', Validators.required],
       category: [this.categories, Validators.required],
       total: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
       comment: ['']

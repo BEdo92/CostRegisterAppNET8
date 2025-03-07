@@ -31,7 +31,7 @@ export class AddCostComponent implements OnInit {
 
   initializeForm() {
     this.costForm = this.fb.group({
-      date: ['', Validators.required, Validators.max(this.maxDate.getTime())],
+      date: ['', Validators.required],
       category: [this.categories, Validators.required],
       total: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
       comment: ['']
@@ -43,13 +43,13 @@ export class AddCostComponent implements OnInit {
     this.costService.saveCost(this.costForm.value).subscribe({
       next: response => { 
         console.log(response);
+        this.toastr.success('Saved successfully');
       },
       error: error => {
         console.log(error);
         this.validationErrors = error
       }
     });
-    this.toastr.success('Saved successfully');
   }
 
   loadCostCategories() {

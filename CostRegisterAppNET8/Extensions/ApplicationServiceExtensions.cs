@@ -2,6 +2,7 @@
 using API.Interfaces;
 using API.Repositories;
 using API.Services;
+using Microsoft.AspNetCore.HttpLogging;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
@@ -73,6 +74,12 @@ public static class ApplicationServiceExtensions
         services.AddScoped<ICostplanRepository, CostplanRepository>();
 
         services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+        builder.Services.AddHttpLogging(o =>
+        {
+            o.CombineLogs = true;
+            o.LoggingFields = HttpLoggingFields.All | HttpLoggingFields.RequestQuery;
+        });
 
         return services;
     }

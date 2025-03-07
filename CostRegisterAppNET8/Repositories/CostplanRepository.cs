@@ -22,6 +22,7 @@ public class CostplanRepository : BaseTotalRepository<CostPlan>, ICostplanReposi
         return await context.CostPlans
             .Where(c => c.AppUserId == userId)
             .Include(c => c.CostCategory)
+            .AsNoTracking()
             .ToListAsync();
     }
 
@@ -30,6 +31,7 @@ public class CostplanRepository : BaseTotalRepository<CostPlan>, ICostplanReposi
         var query = context.CostPlans
         .Where(c => c.AppUserId == userId)
             .Include(c => c.CostCategory)
+            .AsNoTracking()
             .ProjectTo<CostEntryDto>(mapper.ConfigurationProvider)
             .AsQueryable();
 

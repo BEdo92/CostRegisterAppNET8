@@ -1,7 +1,8 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
-import { inject, Injectable, signal } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { inject, Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { Cost } from '../_models/cost';
+import { CostPlan } from '../_models/costplan';
 
 @Injectable({
   providedIn: 'root'
@@ -34,7 +35,27 @@ export class CostService {
     return this.http.get<Cost[]>(this.baseUrl + 'cost/all');
   }
 
+  getIncome() {
+    return this.http.get<Cost[]>(this.baseUrl + 'income/all');
+  }
+
+  getCostplans() {
+    return this.http.get<CostPlan[]>(this.baseUrl + 'costplan/all');
+  }
+
   getBalance() {
     return this.http.get<number>(this.baseUrl + 'balance');
+  }
+
+  deleteCosts(ids: number[]) {
+    return this.http.request('delete', this.baseUrl + 'cost', { body: ids });
+  }
+
+  deleteIncome(ids: number[]) {
+    return this.http.request('delete', this.baseUrl + 'income', { body: ids });
+  }
+
+  deleteCostplans(ids: number[]) {
+    return this.http.request('delete', this.baseUrl + 'costplan', { body: ids });
   }
 }
