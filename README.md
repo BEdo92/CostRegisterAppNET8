@@ -11,7 +11,7 @@
 - Showing all previously saved costs, income and plans where you can delete the selected record,
 
 #### Technology stack:
-- .NET 8
+- .NET 8 (C# 12)
 - Entity Framework Core
 - Angular 17
 - Azure SQL
