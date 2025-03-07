@@ -2,8 +2,7 @@
 
 ### A simple cost register app for web and mobile (later).
 
-The main functions of this cost register app are:
-
+#### Main functions:
 - Saving your costs,
 - Saving your income,
 - Saving planned costs (if you know that you will buy e.g. a new tv),
@@ -11,4 +10,8 @@ The main functions of this cost register app are:
 - Showing the percentage of costs for each different categories (e.g. food, household, sport, hobby),
 - Showing all previously saved costs, income and plans where you can delete the selected record,
 
-The data saved to Azure SQL database.
+#### Technology stack:
+- .NET 8
+- Entity Framework Core
+- Angular 17
+- Azure SQL
