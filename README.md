@@ -1,17 +1,20 @@
-# Cost register (.NET 8)
+# Cost Register (.NET 8)
 
-### A simple cost register app for web and mobile (later).
+A simple cost management web app (with future plans for mobile support).
 
-#### Main functions:
-- Saving your costs,
-- Saving your income,
-- Saving planned costs (if you know that you will buy e.g. a new tv),
-- Counting the actual balance with or without the planned costs,
-- Showing the percentage of costs for each different categories (e.g. food, household, sport, hobby),
-- Showing all previously saved costs, income and plans where you can delete the selected record,
+## **Features**
+- Record your **expenses** and **income**.
+- Plan future expenses (e.g., if you're saving for a new TV).
+- Calculate your **current balance**, with or without planned expenses.
+- Visualize spending habits with **category-based percentage breakdowns** (e.g., food, household, sport, hobby).
+- View and manage all recorded expenses, income, and planned purchases, with the option to delete entries.
 
-#### Technology stack:
-- .NET 8 (C# 12)
-- Entity Framework Core
-- Angular 17
-- Azure SQL
+## **Technology Stack**
+- **Backend:** .NET 8 (C# 12) with Entity Framework Core
+- **Frontend:** Angular 17
+- **Database:** Azure SQL
+
+## **About the Project**
+This project was built with the help of a Udemy course, similar to my previous **SportApp** project and an earlier (2020) version of **Cost Register Web**.
+
+---
