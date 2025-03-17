@@ -9,4 +9,5 @@ public interface IBaseTotalRepository<TEntity> where TEntity : BaseTotalModel
     Task<decimal> GetTotalAsync();
     void Update(TEntity entity);
     void Delete(TEntity entity);
+    Task<decimal> GetTotalByUserIdAsync(string userId);
 }

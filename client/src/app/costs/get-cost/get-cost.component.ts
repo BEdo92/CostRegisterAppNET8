@@ -9,11 +9,13 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { FormsModule } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-get-cost',
   standalone: true,
-  imports: [MatTableModule, MatPaginatorModule, MatSortModule, MatCheckboxModule, FormsModule],
+  imports: [MatTableModule, MatPaginatorModule, MatSortModule, MatCheckboxModule, FormsModule, DatePipe],
+  providers: [],
   templateUrl: './get-cost.component.html',
   styleUrl: './get-cost.component.css'
 })

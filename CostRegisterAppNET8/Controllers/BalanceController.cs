@@ -1,5 +1,5 @@
-using AutoMapper;
 using API.Interfaces;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
@@ -17,13 +17,29 @@ public class BalanceController(IUnitOfWork unitOfWork, IMapper mapper) : BaseApi
             return BadRequest("No user ID was found in token.");
         }
 
-        var incomes = await unitOfWork.IncomeRepository.GetIncomesAsync(userId);
-        var costs = await unitOfWork.CostRepository.GetCostsAsync(userId);
+        var income = await unitOfWork.IncomeRepository.GetTotalByUserIdAsync(userId);
+        var costs = await unitOfWork.CostRepository.GetTotalByUserIdAsync(userId);
 
-        var totalIncome = incomes.Sum(i => i.Total);
-        var totalCost = costs.Sum(c => c.Total);
+        var balance = income - costs;
 
-        var balance = totalIncome - totalCost;
+        return Ok(balance);
+    }
+
+    [HttpGet("withplan")]
+    public async Task<ActionResult<decimal>> GetBalanceWithCostPlans()
+    {
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+        if (string.IsNullOrEmpty(userId))
+        {
+            return BadRequest("No user ID was found in token.");
+        }
+
+        var income = await unitOfWork.IncomeRepository.GetTotalByUserIdAsync(userId);
+        var costs = await unitOfWork.CostRepository.GetTotalByUserIdAsync(userId);
+        var costplans = await unitOfWork.CostplanRepository.GetTotalByUserIdAsync(userId);
+
+        var balance = income - costs - costplans;
 
         return Ok(balance);
     }

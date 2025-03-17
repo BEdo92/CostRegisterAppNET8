@@ -47,6 +47,10 @@ export class CostService {
     return this.http.get<number>(this.baseUrl + 'balance');
   }
 
+  getBalanceWithCosplans() {
+    return this.http.get<number>(this.baseUrl + 'balance/withplan');
+  }
+
   deleteCosts(ids: number[]) {
     return this.http.request('delete', this.baseUrl + 'cost', { body: ids });
   }

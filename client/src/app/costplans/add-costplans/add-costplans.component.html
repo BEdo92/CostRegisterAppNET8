@@ -7,11 +7,11 @@
     <div>
         <label for="category">Category</label>
         <br>
-        <select [formControl]="$any(costForm.controls['category'])" id="category">
+        <select class="form-select" [formControl]="$any(costForm.controls['category'])" id="category">
           <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
         </select>
       </div>
-
+      <div class="mb-3"></div>
     <app-text-input [formControl]="$any(costForm.controls['comment'])" [label]="'Comment'"></app-text-input>
   
     @if (validationErrors) {
