@@ -37,4 +37,36 @@ public class IncomeRepository : BaseTotalRepository<Income>, IIncomeRepository
 
         return await FilterAsync(query, costParams);
     }
+
+    public async Task<decimal> GetTotalByUserIdAsync(string userId)
+    {
+        return await context.Incomes
+            .Where(c => c.AppUserId == userId)
+            .AsNoTracking()
+            .SumAsync(c => c.Total);
+    }
+
+    public async Task<List<CategoryShareDto>> GetCategorySharesAsync(string userId)
+    {
+        var totalIncome = await context.Incomes
+            .Where(c => c.AppUserId == userId)
+            .SumAsync(i => i.Total);
+
+        if (totalIncome == 0)
+        {
+            return new List<CategoryShareDto>();
+        }
+
+        var categoryShares = await context.Incomes
+            .Where(c => c.AppUserId == userId)
+            .GroupBy(i => i.IncomeCategory)
+            .Select(g => new CategoryShareDto
+            {
+                CategoryName = g.Key.CategoryName,
+                Percentage = (g.Sum(i => i.Total) / totalIncome) * 100
+            })
+            .ToListAsync();
+
+        return categoryShares;
+    }
 }

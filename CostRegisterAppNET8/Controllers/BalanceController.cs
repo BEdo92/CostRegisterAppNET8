@@ -1,3 +1,4 @@
+using API.DTOs;
 using API.Interfaces;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
@@ -8,7 +9,7 @@ namespace API.Controllers;
 public class BalanceController(IUnitOfWork unitOfWork, IMapper mapper) : BaseApiController
 {
     [HttpGet]
-    public async Task<ActionResult<decimal>> GetBalance()
+    public async Task<ActionResult<BalanceDto>> GetBalance()
     {
         var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
@@ -17,30 +18,28 @@ public class BalanceController(IUnitOfWork unitOfWork, IMapper mapper) : BaseApi
             return BadRequest("No user ID was found in token.");
         }
 
-        var income = await unitOfWork.IncomeRepository.GetTotalByUserIdAsync(userId);
-        var costs = await unitOfWork.CostRepository.GetTotalByUserIdAsync(userId);
+        decimal income = await unitOfWork.IncomeRepository.GetTotalByUserIdAsync(userId);
+        decimal costs = await unitOfWork.CostRepository.GetTotalByUserIdAsync(userId);
+        decimal costPlans = await unitOfWork.CostplanRepository.GetTotalByUserIdAsync(userId);
 
-        var balance = income - costs;
+        decimal balance = income - costs;
+        decimal balanceIncludedCostPlans = income - costs - costPlans;
 
-        return Ok(balance);
-    }
+        var incomeCategoryShares = await unitOfWork.IncomeRepository.GetCategorySharesAsync(userId);
+        var expenseCategoryShares = await unitOfWork.CostRepository.GetCategorySharesAsync(userId);
 
-    [HttpGet("withplan")]
-    public async Task<ActionResult<decimal>> GetBalanceWithCostPlans()
-    {
-        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        // 3. Get Monthly Costs
+        var monthlyCosts = await unitOfWork.CostRepository.GetMonthlyCostsAsync(userId);
 
-        if (string.IsNullOrEmpty(userId))
+        var balanceDto = new BalanceDto
         {
-            return BadRequest("No user ID was found in token.");
-        }
+            Balance = balance,
+            BalanceIncludedCostPlans = balanceIncludedCostPlans,
+            IncomeCategoryShares = incomeCategoryShares,
+            CostCategoryShares = expenseCategoryShares,
+            MonthlyCosts = monthlyCosts
+        };
 
-        var income = await unitOfWork.IncomeRepository.GetTotalByUserIdAsync(userId);
-        var costs = await unitOfWork.CostRepository.GetTotalByUserIdAsync(userId);
-        var costplans = await unitOfWork.CostplanRepository.GetTotalByUserIdAsync(userId);
-
-        var balance = income - costs - costplans;
-
-        return Ok(balance);
+        return Ok(balanceDto);
     }
 }

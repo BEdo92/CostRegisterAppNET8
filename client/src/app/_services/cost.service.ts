@@ -3,6 +3,7 @@ import { inject, Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { Cost } from '../_models/cost';
 import { CostPlan } from '../_models/costplan';
+import { Balance } from '../_models/balance';
 
 @Injectable({
   providedIn: 'root'
@@ -44,11 +45,7 @@ export class CostService {
   }
 
   getBalance() {
-    return this.http.get<number>(this.baseUrl + 'balance');
-  }
-
-  getBalanceWithCosplans() {
-    return this.http.get<number>(this.baseUrl + 'balance/withplan');
+    return this.http.get<Balance>(this.baseUrl + 'balance');
   }
 
   deleteCosts(ids: number[]) {

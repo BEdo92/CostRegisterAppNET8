@@ -15,8 +15,7 @@ export class HomeComponent implements OnInit {
   accountService = inject(AccountService);
   costService = inject(CostService);
   registerMode = false;
-  balance : number = 0;
-  balanceWithCosplans : number = 0;
+  balanceData: any;
 
   registerToggle() {
     this.registerMode = !this.registerMode;
@@ -28,22 +27,12 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.getBalance();
-    this.getBalanceWithCostplans();
   }
 
   getBalance() {
     this.costService.getBalance().subscribe({
       next: balance => {
-        this.balance = balance;
-      },
-      error: error => console.log(error)
-    });
-  }
-
-  getBalanceWithCostplans() {
-    this.costService.getBalanceWithCosplans().subscribe({
-      next: balance => {
-        this.balanceWithCosplans = balance;
+        this.balanceData = balance;
       },
       error: error => console.log(error)
     });

@@ -32,14 +32,6 @@ public class BaseTotalRepository<TEntity>(DataContext context) : IBaseTotalRepos
         return await dbSet.SumAsync(x => x.Total);
     }
 
-    public async Task<decimal> GetTotalByUserIdAsync(string userId)
-    {
-        return await context.CostPlans
-            .Where(c => c.AppUserId == userId)
-            .AsNoTracking()
-            .SumAsync(c => c.Total);
-    }
-
     /// <summary>
     /// Filters the query that is already filtered by userId and category.
     /// </summary>

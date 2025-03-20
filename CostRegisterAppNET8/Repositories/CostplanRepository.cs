@@ -37,4 +37,12 @@ public class CostplanRepository : BaseTotalRepository<CostPlan>, ICostplanReposi
 
         return await FilterAsync(query, costParams);
     }
+
+    public async Task<decimal> GetTotalByUserIdAsync(string userId)
+    {
+        return await context.CostPlans
+            .Where(c => c.AppUserId == userId)
+            .AsNoTracking()
+            .SumAsync(c => c.Total);
+    }
 }
