@@ -3,11 +3,12 @@ import { AccountService } from '../_services/account.service';
 import { RegisterComponent } from "../register/register.component";
 import { CommonModule, TitleCasePipe } from '@angular/common';
 import { CostService } from '../_services/cost.service';
+import { MonthNamePipe } from '../pipes/month-name.pipe';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, RegisterComponent, TitleCasePipe],
+  imports: [CommonModule, RegisterComponent, TitleCasePipe, MonthNamePipe],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
