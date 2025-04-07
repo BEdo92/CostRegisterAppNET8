@@ -9,7 +9,9 @@ public class UnitOfWork(
     IIncomeCategoryRepository incomeCategoryRepository,
     ICostRepository costRepository,
     IIncomeRepository incomeRepository,
-    ICostplanRepository costplanRepository) : IUnitOfWork
+    ICostplanRepository costplanRepository,
+    IUserCurrencyRepository userCurrencyRepository,
+    ICurrencyRepository currencyRepository) : IUnitOfWork
 {
     public ICostCategoryRepository CostCategoryRepository => costCategoryRepository;
 
@@ -18,6 +20,8 @@ public class UnitOfWork(
     public IIncomeCategoryRepository IncomeCategoryRepository => incomeCategoryRepository;
     public IIncomeRepository IncomeRepository => incomeRepository;
     public ICostplanRepository CostplanRepository => costplanRepository;
+    public IUserCurrencyRepository UserCurrencyRepository => userCurrencyRepository;
+    public ICurrencyRepository CurrencyRepository => currencyRepository;
 
     public async Task<bool> CompleteAsync()
     {

@@ -2,9 +2,9 @@
 <h2>Welcome back, {{accountService.currentUser()?.username | titlecase}}!</h2>
 <div class="card mt-4">
     <div class="card-body">
-        <p class="card-title">Current balance: <span class="text-success">{{balanceData.balance}}</span></p>
+        <p class="card-title">Current balance: <span class="text-success">{{balanceData.balance | number:'1.0-2'}}</span> {{balanceData.currencySymbol}}</p>
         <p class="card-title">Current balance - including cost plans: <span
-                class="text-info">{{balanceData.balanceIncludedCostPlans}}</span></p>
+                class="text-info">{{balanceData.balanceIncludedCostPlans | number:'1.0-2'}}</span> {{balanceData.currencySymbol}}</p>
     </div>
 </div>
 <div class="card mt-4">
@@ -12,7 +12,7 @@
         <h5 class="card-title">Income Category Shares</h5>
         <ul>
             @for (share of balanceData.incomeCategoryShares; track share.categoryName) {
-            <li>{{share.categoryName}}: {{share.percentage}}%</li>
+            <li>{{share.categoryName}}: {{share.percentage | number:'1.2-2'}}%</li>
             }
         </ul>
     </div>
@@ -22,14 +22,14 @@
         <h5 class="card-title">Expense Category Shares</h5>
         <ul>
             @for (share of balanceData.costCategoryShares; track share.categoryName) {
-            <li>{{share.categoryName}}: {{share.percentage}}%</li>
+            <li>{{share.categoryName}}: {{share.percentage | number:'1.2-2'}}%</li>
             }
         </ul>
     </div>
 </div>
 <div class="card mt-4">
     <div class="card-body">
-        <h5 class="card-title">Monthly Costs</h5>
+        <h5 class="card-title">Monthly Costs ({{balanceData.currencyCode}})</h5>
         <ul>
             @for (cost of balanceData.monthlyCosts; track cost.month) {
             <li>{{cost.month}}. {{cost.year}}: {{cost.totalCost}}</li>

@@ -54,4 +54,29 @@ public class Seed
 
         await context.IncomeCategories.AddRangeAsync(incomeCategoriesData);
     }
+
+    public static async Task SeedCurrencies(DataContext context)
+    {
+        // NOTE: To prevent duplicate data.
+        if (await context.Currencies.AnyAsync())
+        {
+            return;
+        }
+
+        var currencies = await File.ReadAllTextAsync("Data/Currencies.json");
+
+        var options = new JsonSerializerOptions
+        {
+            PropertyNameCaseInsensitive = true
+        };
+
+        var currenciesData = JsonSerializer.Deserialize<List<Currency>>(currencies, options);
+
+        if (currenciesData == null)
+        {
+            return;
+        }
+
+        await context.Currencies.AddRangeAsync(currenciesData);
+    }
 }

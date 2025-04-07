@@ -1,0 +1,42 @@
+﻿[
+  {
+    "Code": "HUF",
+    "Symbol": "Ft",
+    "Name": "Hungarian Forint"
+  },
+  {
+    "Code": "EUR",
+    "Symbol": "€",
+    "Name": "Euro"
+  },
+  {
+    "Code": "USD",
+    "Symbol": "$",
+    "Name": "US Dollar"
+  },
+  {
+    "Code": "GBP",
+    "Symbol": "£",
+    "Name": "British Pound"
+  },
+  {
+    "Code": "AUD",
+    "Symbol": "$",
+    "Name": "Australian Dollar"
+  },
+  {
+    "Code": "CAD",
+    "Symbol": "$",
+    "Name": "Canadian Dollar"
+  },
+  {
+    "Code": "CHF",
+    "Symbol": "Fr.",
+    "Name": "Swiss Franc"
+  },
+  {
+    "Code": "JPY",
+    "Symbol": "¥",
+    "Name": "Japanese Yen"
+  }
+]

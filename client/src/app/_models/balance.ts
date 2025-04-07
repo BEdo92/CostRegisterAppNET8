@@ -1,6 +1,8 @@
 export interface Balance {
     balance: number;
     balanceIncludedCostPlans: number;
+    currencyCode: string;
+    currencySymbol: string;
     incomeCategoryShares: CategoryShare[];
     expenseCategoryShares: CategoryShare[];
     monthlyCosts: MonthlyCost[];

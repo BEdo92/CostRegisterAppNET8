@@ -1,13 +1,13 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { AccountService } from '../_services/account.service';
 import { RegisterComponent } from "../register/register.component";
-import { TitleCasePipe } from '@angular/common';
+import { CommonModule, TitleCasePipe } from '@angular/common';
 import { CostService } from '../_services/cost.service';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [RegisterComponent, TitleCasePipe],
+  imports: [CommonModule, RegisterComponent, TitleCasePipe],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })

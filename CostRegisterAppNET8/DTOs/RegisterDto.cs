@@ -16,4 +16,6 @@ public class RegisterDto
 
     [Required]
     public string? PhoneNumber { get; set; }
+
+    public string? Currency { get; set; }
 }

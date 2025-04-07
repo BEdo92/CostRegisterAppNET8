@@ -1,14 +1,14 @@
-﻿using AutoMapper;
-using API.Data;
+﻿using API.Data;
 using API.DTOs;
 using API.Interfaces;
+using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace API.Controllers;
 
-public class AccountController(UserManager<AppUser> userManager, ITokenService tokenService, IMapper mapper) : BaseApiController
+public class AccountController(UserManager<AppUser> userManager, IUnitOfWork unitOfWork, ITokenService tokenService, IMapper mapper) : BaseApiController
 {
     [HttpPost("register")]
     public async Task<ActionResult<UserDto>> RegisterAsync(RegisterDto registerDto)
@@ -21,11 +21,25 @@ public class AccountController(UserManager<AppUser> userManager, ITokenService t
         var user = mapper.Map<AppUser>(registerDto);
         user.UserName = registerDto.Username.ToLower();
 
+        var currencyId = await unitOfWork.CurrencyRepository.GetCurrencyId(registerDto.Currency);
+
+        if (currencyId == 0)
+        {
+            return BadRequest("Currency not found");
+        }
+
         var result = await userManager.CreateAsync(user, registerDto.Password);
 
         if (!result.Succeeded)
         {
             return BadRequest(result.Errors);
+        }
+
+        await unitOfWork.UserCurrencyRepository.AddUserCurrencyAsync(user.Id, currencyId);
+
+        if (!await unitOfWork.CompleteAsync())
+        {
+            return BadRequest("Failed to add user currency");
         }
 
         var userDto = new UserDto

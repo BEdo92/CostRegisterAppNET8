@@ -72,6 +72,8 @@ public static class ApplicationServiceExtensions
         services.AddScoped<ICostRepository, CostRepository>();
         services.AddScoped<IIncomeRepository, IncomeRepository>();
         services.AddScoped<ICostplanRepository, CostplanRepository>();
+        services.AddScoped<IUserCurrencyRepository, UserCurrencyRepository>();
+        services.AddScoped<ICurrencyRepository, CurrencyRepository>();
 
         services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 

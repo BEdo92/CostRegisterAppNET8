@@ -28,8 +28,13 @@ public class BalanceController(IUnitOfWork unitOfWork, IMapper mapper) : BaseApi
         var incomeCategoryShares = await unitOfWork.IncomeRepository.GetCategorySharesAsync(userId);
         var expenseCategoryShares = await unitOfWork.CostRepository.GetCategorySharesAsync(userId);
 
-        // 3. Get Monthly Costs
+        // Get Monthly Costs:
         var monthlyCosts = await unitOfWork.CostRepository.GetMonthlyCostsAsync(userId);
+
+        // Currency of the user:
+        var currencyCode = await unitOfWork.UserCurrencyRepository.GetUserCurrencyCodeAsync(userId);
+        var currencySymbol = await unitOfWork.UserCurrencyRepository.GetUserCurrencySymbolAsync(userId);
+
 
         var balanceDto = new BalanceDto
         {
@@ -37,7 +42,9 @@ public class BalanceController(IUnitOfWork unitOfWork, IMapper mapper) : BaseApi
             BalanceIncludedCostPlans = balanceIncludedCostPlans,
             IncomeCategoryShares = incomeCategoryShares,
             CostCategoryShares = expenseCategoryShares,
-            MonthlyCosts = monthlyCosts
+            MonthlyCosts = monthlyCosts,
+            CurrencyCode = currencyCode,
+            CurrencySymbol = currencySymbol
         };
 
         return Ok(balanceDto);

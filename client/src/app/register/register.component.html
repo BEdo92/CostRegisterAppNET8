@@ -13,6 +13,14 @@
       <app-text-input [formControl]="$any(registerForm.controls['email'])" [label]="'Email'"></app-text-input>
   
       <app-text-input [formControl]="$any(registerForm.controls['phoneNumber'])" [label]="'Mobile'"></app-text-input>
+
+        <label for="currency">Currency</label>
+        <br>
+        <select class="form-select" [formControl]="$any(registerForm.controls['currency'])" id="category">
+            @for (currency of currencies; track currency) {
+                <option [value]="currency">{{ currency }}</option>
+            }
+        </select>
   
     @if (validationErrors) {
       <div class="alert alert-danger text-start">

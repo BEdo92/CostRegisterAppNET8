@@ -15,12 +15,13 @@ export class RegisterComponent {
   private accountService = inject(AccountService);
   private fb = inject(FormBuilder);
   private router = inject(Router);
+  currencies: string[] = [];
   cancelRegister = output<boolean>();
   registerForm: FormGroup = new FormGroup({});
   validationErrors: string[] | undefined;
 
   ngOnInit(): void {
-    this.initializeForm();
+    this.loadData();
   }
 
   initializeForm() {
@@ -30,7 +31,8 @@ export class RegisterComponent {
         Validators.maxLength(15)]],
       confirmPassword: ['', [Validators.required, this.matchValues('password')]],
       email: ['', [Validators.required, Validators.email]],
-      phoneNumber: ['', Validators.required]
+      phoneNumber: ['', Validators.required],
+      currency: [this.currencies, Validators.required]
     });
     this.registerForm.controls['password'].valueChanges.subscribe({
       next: () => this.registerForm.controls['confirmPassword'].updateValueAndValidity()
@@ -53,5 +55,16 @@ export class RegisterComponent {
   cancel() {
     this.cancelRegister.emit(false);
     console.log('cancelled');
+  }
+
+  loadData() {
+    this.accountService.getCurrencies().subscribe({
+      next: currency => {
+        this.currencies = currency;
+        console.log(this.currencies);
+        this.initializeForm();
+      },
+      error: error => this.validationErrors = error
+    });
   }
 }

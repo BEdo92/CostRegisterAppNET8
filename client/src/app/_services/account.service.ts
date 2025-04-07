@@ -41,4 +41,8 @@ export class AccountService {
     localStorage.removeItem('user');
     this.currentUser.set(null);
   }
+
+  getCurrencies() {
+    return this.http.get<string[]>(this.baseUrl + 'currency');
+  }
 }
